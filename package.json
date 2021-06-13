@@ -1,0 +1,19 @@
+{
+  "name": "bloglist",
+  "version": "1.0.0",
+  "description": "user blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swati2904/FullStackOpen-Part4.git"
+  },
+  "author": "swati saxena",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swati2904/FullStackOpen-Part4/issues"
+  },
+  "homepage": "https://github.com/swati2904/FullStackOpen-Part4#readme"
+}
