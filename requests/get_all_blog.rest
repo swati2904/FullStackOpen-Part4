@@ -1,0 +1,13 @@
+###
+GET http://localhost:3003/api/blogs
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Learning Node.js",
+    "author": "swati",
+    "url": "swati@mail.com",
+    "likes": 1
+}
