@@ -13,7 +13,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3003/api/blogs/
+GET http://localhost:3003/api/blogs/60d0d19b77900af38a55f787
+
+###
+DELETE http://localhost:3003/api/blogs/60d0d1e077900af38a55f788
 
 ###
 GET http://localhost:3003/api/users
