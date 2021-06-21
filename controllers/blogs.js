@@ -1,6 +1,16 @@
+/* eslint-disable no-undef */
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const blogRouter = require('express').Router()
+const jwt = require('jsonwebtoken')
+
+const getTokenFrom = (request) => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7)
+  }
+  return null
+}
 
 blogRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({}).populate('user')
@@ -13,7 +23,7 @@ blogRouter.get('/:id', async (request, response) => {
     id: 1,
   })
   if (blog) response.send(blog)
-  else  response.status(404).send({ message:'Id is not available' })
+  else response.status(404).send({ message: 'Id is not available' })
 })
 
 blogRouter.delete('/:id', async (request, response) => {
@@ -24,19 +34,21 @@ blogRouter.delete('/:id', async (request, response) => {
 blogRouter.post('/', async (request, response) => {
   const body = request.body
 
-  const user = await User.find({})
-  const userSelected = user[Math.floor(Math.random() * user.length)]
+  const token = getTokenFrom(request)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  const user = await User.findById(decodedToken.id)
 
   const blog = new Blog({
     ...body,
-    user: userSelected._id
+    user: user._id,
   })
   const result = await blog.save()
-  userSelected.blogs = userSelected.blogs.concat(result._id)
-  await userSelected.save()
+  user.blogs = user.blogs.concat(result._id)
+  await user.save()
   response.status(201).send(result)
-
- 
 })
 
 blogRouter.put('/:id', async (request, response) => {

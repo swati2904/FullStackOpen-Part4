@@ -36,6 +36,7 @@ POST http://localhost:3003/api/login
 Content-Type: application/json
 
 {
+    "token": "eyKhbGciOiJIUzI1NiLsInR5cCI6IkpXVCJ9.eyJ1c2VybmYtZSI9InJvb3RNYXN0ZXIiLCJpZCI6IjYwNWI3ZTg1MTdkMmI4MzQ1MDU5MzViYiIsImlhdCI6MTYxNjY5NDA1NH0.Rf3gDZcn9nVceEFdeNxl0QkYXNx0Rme-mFUFNroCvxQ",
     "username": "swatiSaxena",
     "password": "12789690"
 }
