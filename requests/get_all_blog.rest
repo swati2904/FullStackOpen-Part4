@@ -17,3 +17,16 @@ Content-Type: application/json
     "url": "swati.29@mail.com",
     "likes": 19
 }
+
+###
+GET http://localhost:3003/api/users
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username":"sush",
+    "name":"sushmita",
+    "password":"987654321"
+}

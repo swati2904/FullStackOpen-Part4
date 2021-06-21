@@ -9,6 +9,8 @@ const express = require('express')
 const app = express()
 
 const blogRouter = require('./controllers/blogs')
+const userRouter = require('./controllers/users')
+
 logger.info('connecting to', config.MONGODB_URI)
 
 mongoose
@@ -36,6 +38,8 @@ app.use(
 app.use(express.json())
 
 app.use('/api/blogs', blogRouter)
+app.use('/api/users', userRouter)
+
 // handler of requests with unknown endpoint
 app.use(middleware.unknownEndpoint)
 // handler of requests with result to errors
