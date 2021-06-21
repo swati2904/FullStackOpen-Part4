@@ -1,14 +1,19 @@
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const blogRouter = require('express').Router()
 
 blogRouter.get('/', async (request, response) => {
-  const blogs = await Blog.find({})
+  const blogs = await Blog.find({}).populate('user')
   response.send(blogs)
 })
 blogRouter.get('/:id', async (request, response) => {
-  const blog = await Blog.findById(request.params.id)
+  const blog = await Blog.findById(request.params.id).populate('user', {
+    username: 1,
+    name: 1,
+    id: 1,
+  })
   if (blog) response.send(blog)
-  else throw new Error('id not exists')
+  else  response.status(404).send({ message:'Id is not available' })
 })
 
 blogRouter.delete('/:id', async (request, response) => {
@@ -17,9 +22,21 @@ blogRouter.delete('/:id', async (request, response) => {
 })
 
 blogRouter.post('/', async (request, response) => {
-  const blog = new Blog(request.body)
+  const body = request.body
+
+  const user = await User.find({})
+  const userSelected = user[Math.floor(Math.random() * user.length)]
+
+  const blog = new Blog({
+    ...body,
+    user: userSelected._id
+  })
   const result = await blog.save()
+  userSelected.blogs = userSelected.blogs.concat(result._id)
+  await userSelected.save()
   response.status(201).send(result)
+
+ 
 })
 
 blogRouter.put('/:id', async (request, response) => {
