@@ -26,7 +26,16 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username":"sushi",
+    "username":"swatiSaxena",
     "name":"sushmita",
-    "password":"987654321"
+    "password":"12789690"
+}
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "swatiSaxena",
+    "password": "12789690"
 }
